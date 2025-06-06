@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# URL to fetch data from
+URL="https://www.amfiindia.com/spages/NAVAll.txt"
+
+# Output file
+OUTPUT="amfi_data.tsv"
+
+# Fetch and extract Scheme Name and Net Asset Value (NAV) columns (4th and 5th tab-separated fields)
+curl -s "$URL" | awk -F ';' 'NF > 5 && $4 != "" && $5 != "" { print $4 "\t" $5 }' > "$OUTPUT"
+
+echo "Scheme Name and Asset Value saved to $OUTPUT"
